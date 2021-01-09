@@ -1,0 +1,20 @@
+{
+  "name": "covid",
+  "version": "1.0.0",
+  "description": "Yet another covid tracker",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcmmiller/covid.git"
+  },
+  "author": "Marc Miller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcmmiller/covid/issues"
+  },
+  "homepage": "https://github.com/marcmmiller/covid#readme"
+}
