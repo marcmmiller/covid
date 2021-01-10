@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/marcmmiller/covid#readme",
   "dependencies": {
-    "csv": "^5.3.2",
-    "express": "^4.17.1"
+    "csv-parser": "^3.0.0",
+    "express": "^4.17.1",
+    "nedb": "^1.8.0"
   }
 }
