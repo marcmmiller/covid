@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/marcmmiller/covid/issues"
   },
-  "homepage": "https://github.com/marcmmiller/covid#readme"
+  "homepage": "https://github.com/marcmmiller/covid#readme",
+  "dependencies": {
+    "csv": "^5.3.2",
+    "express": "^4.17.1"
+  }
 }
