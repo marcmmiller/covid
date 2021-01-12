@@ -2,6 +2,7 @@
 const fs = require('fs');
 const express = require('express');
 const csvparse = require('csv-parser');
+const path = require('path');
 
 const COUNTIES_CSV_PATH = '../covid-19-data/us-counties.csv';
 
@@ -16,18 +17,27 @@ let parseCsv = (path, cb) => {
         });
 };
 
-let counties;
+let g_counties;
 parseCsv(COUNTIES_CSV_PATH, (res) => {
     console.log(`...parse of ${ res.length } entries complete.`);
-    counties = res;
+    g_counties = res;
 });
 
 const app = express();
 
-
-app.get('/county/:fips(\\d+)', (req, res) => {
-    res.send(counties.filter( i => i.fips == req.params.fips));
+app.use((req, res, next) => {
+    console.log('%s %s', req.method, req.url);
+    next();
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+app.use(express.static(path.join(__dirname, 'node_modules/knockout/build/output')));
+
+app.get('/fips/:fips(\\d+)', (req, res) => {
+    res.send(g_counties.filter( i => i.fips == req.params.fips));
+});
+
 
 const port = Number(process.env.PORT || 3000);
 app.listen(port, () => {
