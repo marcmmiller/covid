@@ -13,20 +13,22 @@
 
     <!-- <link href="/css/main.css" rel="stylesheet"> -->
 
-<style>
-</style>
+    <style>
+      //
+    </style>
  </head>
 
   <body>
-    Hello world.
 
-    <ul id="moo" data-bind="foreach: counties">
-      <li>
-        <span data-bind="text: date"></span>:
-        <span data-bind="text: newc"></span>
-        (<span data-bind="text: active15"></span>)
-      </li>
-    </ul>
+    <div>
+      County:
+      <span data-bind="text: latest.county"></span>
+    </div>
+
+    <div>
+      Currently Active:
+      <span data-bind="text: latest.active[10]"></span>
+    </div>
 
   </body>
 
