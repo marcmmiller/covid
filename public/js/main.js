@@ -28,20 +28,29 @@ class ActiveCalc {
     }
 }
 
-$( document ).ready( () => {
+function ajdl(url, cb) {
     $.ajax({
-        url: '/fips/36091',
+        url: url,
         dataType: 'json',
-        success: (res) => {
+        success: (res) => { cb(res); },
+        error: (jqxhr, tStatus, tError) => {
+            console.log(jqxhr, tStatus, tError);
+            alert("Ajax error: " + tError);
+        }
+    });
+}
+
+$( document ).ready( () => {
+    ajdl('/pop19/36091', (pop) => {
+        ajdl('/fips/36091', (res) => {
             ActiveCalc.add(res);
             let viewModel = {
+                name: pop.name,
+                pop: pop.pop,
                 latest: res[res.length - 1]
             };
             ko.applyBindings(viewModel); //, $('#moo').get(0));
-        },
-        error: (jqxhr, tStatus, tError) => {
-            alert("Ajax error.");
-        }
+        });
     });
 });
 
