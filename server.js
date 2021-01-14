@@ -47,6 +47,9 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use(express.static(path.join(__dirname, 'node_modules/knockout/build/output')));
+app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
+app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
+app.use(express.static(path.join(__dirname, 'node_modules/@popperjs/core/dist/umd')));
 
 app.get('/fips/:fips(\\d+)', (req, res) => {
     res.send(g_counties.filter( i => i.fips == req.params.fips ));
