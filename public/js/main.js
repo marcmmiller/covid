@@ -48,7 +48,7 @@ function ajdl(url, cb) {
     });
 }
 
-const g_underreportingFactor = 4;
+const g_underreportingFactor = 3.2;
 
 $( document ).ready( () => {
     ajdl('/pop19/36091', (popres) => {
@@ -60,6 +60,14 @@ $( document ).ready( () => {
             let avg7Per100K = avg7 / (pop / 100000);
             let estActive = latest.active[10] * g_underreportingFactor;
             let estActivePer100K = estActive / (pop / 100000);
+            let estActivePct = estActivePer100K / 1000;
+            let groupSize = ko.observable();
+            let groupRisk = ko.observable();
+            groupSize.subscribe((val) => {
+                let r = 1 - Math.pow(1-estActivePct/100, Number(groupSize()));
+                groupRisk((r * 100).toFixed(2));
+            });
+            groupSize(25);
             let viewModel = {
                 name: popres.name,
                 pop: popres.pop,
@@ -67,7 +75,10 @@ $( document ).ready( () => {
                 avg7: avg7.toFixed(2),
                 avg7Per100K: avg7Per100K.toFixed(2),
                 estActive: estActive,
-                estActivePer100K: estActivePer100K.toFixed(2)
+                estActivePer100K: estActivePer100K.toFixed(2),
+                estActivePct: estActivePct.toFixed(2),
+                groupSize: groupSize,
+                groupRisk: groupRisk
             };
             ko.applyBindings(viewModel); //, $('#moo').get(0));
         });

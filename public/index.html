@@ -24,29 +24,57 @@
 
   <body>
 
-    <div class="tile">
-      County:
-      <span data-bind="text: name"></span>
-      (est population <span data-bind="text:pop"></span>)
+    <div class="title">
+      <div>
+        <span class="county-name" data-bind="text: name"></span>
+        <a class="change">(change)</a>
+      </div>
+      <div class="pop">(est population <span data-bind="text:pop"></span>)</div>
     </div>
 
     <div class="tile">
-      Reported cases in last 20 days:
-      <span data-bind="text: latest.active[10]"></span>
+      Estimated active cases of COVID-19:
+      <div class="data-point-big">
+        <span data-bind="text: estActive"></span>
+      </div>
+
+      <div>
+        <span class="data-point" data-bind="text: estActivePct"></span>%
+        of <span data-bind="text: name"></span> has active Covid (estimated).
+      </div>
+
+      <br/>
+
+      <div>
+        In a group of
+        <div class="data-point-big" data-bind="text: groupSize"></div>
+        randomly-selected people, there's a
+        <div class="data-point-big">
+          <span data-bind="text: groupRisk"></span>%
+        </div>
+        chance that one person has active Covid.
+      </div>
+
+      <input type="range" class="form-range c-range" data-bind="value: groupSize" min="1" max="250"></input>
+      <br>
+      <div class="data-detail">
+        Data as of <span data-bind="text: latest.date"/></span>
+      </div>
     </div>
 
     <div class="tile">
-      Avg new reported cases per day last 7 days:
-      <span data-bind="text: avg7"></span>
-      (<span data-bind="text: avg7Per100K"></span> per 100K)
-    </div>
+      Positive tests in the last 20 days
+      <div class="data-point-big">
+        <span data-bind="text: latest.active[10]"></span>
+      </div>
 
-    <div class="tile">
-      Estimated Active Cases<sup>*</sup>:
-      <span data-bind="text: estActive"></span>
-      (<span data-bind="text: estActivePer100K"></span> per 100K)
+      <div>
+        <span class="data-point" data-bind="text: avg7"></span>
+        avg positives per day
+        (<span class="data-point" data-bind="text: avg7Per100K"></span>
+        per 100K) last 7 days
+      </div>
     </div>
-
 
 
   </body>

@@ -1,5 +1,17 @@
 
 body {
+    font-family: "Roboto",-apple-system,BlinkMacSystemFont,"Segoe UI","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+}
+
+.title {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.change {
+    font-size: .75rem;
+    margin-left: 1ex;
 }
 
 .tile {
@@ -8,7 +20,8 @@ body {
     padding-left: 10px;
     padding-right: 10px;
 
-    width: 60%;
+    /* this needs to be converted to something more responsive: */
+    width: 70%;
 
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 20px;
@@ -18,3 +31,39 @@ body {
     padding: 10px;
 }
 
+.data-point-big {
+    font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 10px;
+    margin-left: 50px;
+}
+
+.data-point {
+    font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-weight: 600;
+}
+
+.data-point-light {
+    font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-weight: 500;
+}
+
+.data-detail {
+    font-size:.75rem;
+    font-style: oblique;
+    text-align:right;
+}
+
+.c-range {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.county-name {
+    font-weight: 600;
+}
+
+.pop {
+    font-weight: 300;
+}
