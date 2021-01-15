@@ -15,6 +15,7 @@
     <!-- <link href="/css/main.css" rel="stylesheet"> -->
 
     <link rel="stylesheet" href="/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/styles.css"/>
 
     <style>
       //
@@ -23,25 +24,26 @@
 
   <body>
 
-    <div>
-      County:
-      <span data-bind="text: name"></span>
-      (est population <span data-bind="text:pop"></span>)
+    <div class="card ms-1" style="width: 20%">
+      <div class="card-body">
+        County:
+        <span data-bind="text: name"></span>
+        (est population <span data-bind="text:pop"></span>)
+      </div>
     </div>
 
-    <div>
+    <div class="tile">
       Reported cases in last 20 days:
       <span data-bind="text: latest.active[10]"></span>
     </div>
 
-    <div>
+    <div class="tile">
       Avg new reported cases per day last 7 days:
       <span data-bind="text: avg7"></span>
       (<span data-bind="text: avg7Per100K"></span> per 100K)
     </div>
 
-
-    <div>
+    <div class="tile">
       Estimated Active Cases<sup>*</sup>:
       <span data-bind="text: estActive"></span>
       (<span data-bind="text: estActivePer100K"></span> per 100K)
