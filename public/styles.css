@@ -1,0 +1,20 @@
+
+body {
+}
+
+.tile {
+    background-color: #fff;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    width: 60%;
+
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 20px;
+    margin: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
