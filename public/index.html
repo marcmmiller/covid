@@ -47,8 +47,8 @@
 
       <div>
         In a group of
-        <div class="data-point-big" data-bind="text: groupSize"></div>
-        randomly-selected people, there's a
+        <span class="data-point" data-bind="text: groupSize"></span>
+        people, there's a
         <div class="data-point-big">
           <span data-bind="text: groupRisk"></span>%
         </div>
@@ -74,6 +74,10 @@
         (<span class="data-point" data-bind="text: avg7Per100K"></span>
         per 100K) last 7 days
       </div>
+
+      <br/>
+
+      <canvas id="cases-per-day"></canvas>
     </div>
 
 
@@ -82,6 +86,7 @@
   <script src="/jquery.min.js"></script>
   <script src="/knockout-latest.js"></script>
   <script src="/bootstrap.bundle.min.js"></script>
+  <script src="/Chart.bundle.min.js"></script>
   <script src="/js/main.js"></script>
 
 </html>

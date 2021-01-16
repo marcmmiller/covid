@@ -40,7 +40,12 @@ let g_populations;
 const app = express();
 
 app.use((req, res, next) => {
-    console.log('%s %s', req.method, req.url);
+    let old_end = res.end;
+    res.end = (...restArgs) => {
+        console.log('%s %s %s -> %d', new Date().toUTCString(),
+                    req.method, req.url, res.statusCode);
+        old_end.apply(res, restArgs);
+    };
     next();
 });
 
@@ -49,7 +54,7 @@ app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use(express.static(path.join(__dirname, 'node_modules/knockout/build/output')));
 app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
-app.use(express.static(path.join(__dirname, 'node_modules/@popperjs/core/dist/umd')));
+app.use(express.static(path.join(__dirname, 'node_modules/chart.js/dist')));
 
 app.get('/fips/:fips(\\d+)', (req, res) => {
     res.send(g_counties.filter( i => i.fips == req.params.fips ));

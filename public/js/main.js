@@ -48,11 +48,30 @@ function ajdl(url, cb) {
     });
 }
 
+function doChart(data) {
+    let ctx = $('#cases-per-day').get(0).getContext('2d');
+    let chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.map(i => i.date),
+            datasets: [{
+                label: 'My First dataset',
+                borderWidth: 1,
+                borderColor: 'rgb(255, 99, 132)',
+                data: data.map(i => i.newc)
+            }]
+        },
+        options: {}
+    });
+}
+
 const g_underreportingFactor = 3.2;
+let g_D;
 
 $( document ).ready( () => {
     ajdl('/pop19/36091', (popres) => {
         ajdl('/fips/36091', (res) => {
+            g_D = res;
             ActiveCalc.add(res);
             let pop = Number(popres.pop);
             let latest = res[res.length - 1];
@@ -81,6 +100,7 @@ $( document ).ready( () => {
                 groupRisk: groupRisk
             };
             ko.applyBindings(viewModel); //, $('#moo').get(0));
+            doChart(res);
         });
     });
 });
