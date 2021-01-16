@@ -23,63 +23,89 @@
  </head>
 
   <body>
-
-    <div class="title">
-      <div>
-        <span class="county-name" data-bind="text: name"></span>
-        <a class="change">(change)</a>
-      </div>
-      <div class="pop">(est population <span data-bind="text:pop"></span>)</div>
-    </div>
-
-    <div class="tile">
-      Estimated active cases of COVID-19:
-      <div class="data-point-big">
-        <span data-bind="text: estActive"></span>
-      </div>
-
-      <div>
-        <span class="data-point" data-bind="text: estActivePct"></span>%
-        of <span data-bind="text: name"></span> has active Covid (estimated).
-      </div>
-
-      <br/>
-
-      <div>
-        In a group of
-        <span class="data-point" data-bind="text: groupSize"></span>
-        people, there's a
-        <div class="data-point-big">
-          <span data-bind="text: groupRisk"></span>%
+    <div id="select-state">
+      <div class="tile">
+        Select a state:
+        <br/>
+        <div data-bind="foreach: stategroups">
+          <div class="btn-group state-group" role="group" aria-label="US States"
+               data-bind="foreach: $data">
+            <button type="button" class="btn btn-outline-primary"
+                    data-bind="text: $data[1]">
+            </button>
+          </div>
         </div>
-        chance that one person has active Covid.
-      </div>
-
-      <input type="range" class="form-range c-range" data-bind="value: groupSize" min="1" max="250"></input>
-      <br>
-      <div class="data-detail">
-        Data as of <span data-bind="text: latest.date"/></span>
       </div>
     </div>
 
-    <div class="tile">
-      Positive tests in the last 20 days
-      <div class="data-point-big">
-        <span data-bind="text: latest.active[10]"></span>
+    <div id="data-app" style="display:none">
+      <div class="title">
+        <div>
+          <span class="county-name" data-bind="text: name"></span>
+          <a class="change">(change)</a>
+        </div>
+        <div class="pop">(est population <span data-bind="text:pop"></span>)</div>
       </div>
 
-      <div>
-        <span class="data-point" data-bind="text: avg7"></span>
-        avg positives per day
-        (<span class="data-point" data-bind="text: avg7Per100K"></span>
-        per 100K) last 7 days
-      </div>
+      <div class="tile">
+        Estimated active cases of COVID-19:
+        <div class="data-point-big">
+          <span data-bind="text: estActive"></span>
+        </div>
 
-      <br/>
+        <div>
+          <span class="data-point" data-bind="text: estActivePct"></span>%
+          of <span data-bind="text: name"></span> has active Covid (estimated).
+        </div>
 
-      <canvas id="cases-per-day"></canvas>
-    </div>
+        <br/>
 
+        <div>
+          In a group of
+          <span class="data-point" data-bind="text: groupSize"></span>
+          people, there's a
+          <div class="data-point-big">
+            <span data-bind="text: groupRisk"></span>%
+          </div>
+          chance that one person has active Covid.
+        </div>
+
+        <input type="range" class="form-range c-range" data-bind="value: groupSize" min="1" max="250"></input>
+        <br>
+        <div class="data-detail">
+          Data as of <span data-bind="text: latest.date"/></span>
+</div>
+</div>
+
+<div class="tile">
+  Positive tests in the last 20 days
+  <div class="data-point-big">
+    <span data-bind="text: latest.active[10]"></span>
+  </div>
+
+  <div>
+    <span class="data-point" data-bind="text: avg7"></span>
+    avg positives per day
+    (<span class="data-point" data-bind="text: avg7Per100K"></span>
+    per 100K) last 7 days
+  </div>
+
+  <br/>
+
+  <canvas id="cases-per-day"></canvas>
+</div>
+
+<div class="tile">
+  Deaths:
+  <div class="data-point-big">
+    <span data-bind="text: latest.deaths"></span>
+  </div>
+
+  <br/>
+
+  <canvas id="deaths-per-day"></canvas>
+</div>
+</div> <!-- data-app -->
 
   </body>
 

@@ -1,4 +1,7 @@
 
+const g_states = [["Alabama","AL","01"],["Alaska","AK","02"],["Arizona","AZ","04"],["Arkansas","AR","05"],["California","CA","06"],["Colorado","CO","08"],["Connecticut","CT","09"],["Delaware","DE","10"],["Florida","FL","12"],["Georgia","GA","13"],["Hawaii","HI","15"],["Idaho","ID","16"],["Illinois","IL","17"],["Indiana","IN","18"],["Iowa","IA","19"],["Kansas","KS","20"],["Kentucky","KY","21"],["Louisiana","LA","22"],["Maine","ME","23"],["Maryland","MD","24"],["Massachusetts","MA","25"],["Michigan","MI","26"],["Minnesota","MN","27"],["Mississippi","MS","28"],["Missouri","MO","29"],["Montana","MT","30"],["Nebraska","NE","31"],["Nevada","NV","32"],["New Hampshire","NH","33"],["New Jersey","NJ","34"],["New Mexico","NM","35"],["New York","NY","36"],["North Carolina","NC","37"],["North Dakota","ND","38"],["Ohio","OH","39"],["Oklahoma","OK","40"],["Oregon","OR","41"],["Pennsylvania","PA","42"],["Rhode Island","RI","44"],["South Carolina","SC","45"],["South Dakota","SD","46"],["Tennessee","TN","47"],["Texas","TX","48"],["Utah","UT","49"],["Vermont","VT","50"],["Virginia","VA","51"],["Washington","WA","53"],["West Virginia","WV","54"],["Wisconsin","WI","55"],["Wyoming","WY","56"]];
+
+
 // Calculate active cases for all window-sizes of "active": 10-day days
 class ActiveCalc {
     constructor () {
@@ -48,27 +51,59 @@ function ajdl(url, cb) {
     });
 }
 
-function doChart(data) {
+function casesChart(data) {
     let ctx = $('#cases-per-day').get(0).getContext('2d');
     let chart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: data.map(i => i.date),
             datasets: [{
-                label: 'My First dataset',
-                borderWidth: 1,
+                label: '20-day Active Positive Tests',
+                borderWidth: 2,
                 borderColor: 'rgb(255, 99, 132)',
-                data: data.map(i => i.newc)
+                pointRadius: 0,
+                data: data.map(i => i.active[10])
             }]
         },
-        options: {}
+        options: {
+            tooltips: {
+                intersect: false,
+                mode: 'index',
+                axis: 'x',
+            }
+        }
     });
 }
+
+function deathsChart(data) {
+    let ctx = $('#deaths-per-day').get(0).getContext('2d');
+    let chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.map(i => i.date),
+            datasets: [{
+                label: 'Deaths',
+                borderWidth: 2,
+                borderColor: 'rgb(99, 99, 99)',
+                pointRadius: 0,
+                data: data.map(i => i.deaths)
+            }]
+        },
+        options: {
+            tooltips: {
+                intersect: false,
+                mode: 'index',
+                axis: 'x',
+            }
+        }
+    });
+}
+
 
 const g_underreportingFactor = 3.2;
 let g_D;
 
-$( document ).ready( () => {
+function selectCounty(fips) {
     ajdl('/pop19/36091', (popres) => {
         ajdl('/fips/36091', (res) => {
             g_D = res;
@@ -99,9 +134,25 @@ $( document ).ready( () => {
                 groupSize: groupSize,
                 groupRisk: groupRisk
             };
-            ko.applyBindings(viewModel); //, $('#moo').get(0));
-            doChart(res);
+            ko.applyBindings(viewModel, $('data-app').get(0));
+            casesChart(res);
+            deathsChart(res);
         });
     });
+}
+
+$( document ).ready( () => {
+    let nest = [];
+    for (let i = 0; i < g_states.length; ++i) {
+        if (i % 10 == 0) {
+            nest.push([]);
+        }
+        nest[nest.length - 1].push(g_states[i]);
+    }
+
+    let viewModel = {
+        stategroups: nest
+    };
+    ko.applyBindings(viewModel, $('#select-state').get(0));
 });
 

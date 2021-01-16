@@ -3,6 +3,11 @@ body {
     font-family: "Roboto",-apple-system,BlinkMacSystemFont,"Segoe UI","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
 }
 
+.state-group {
+    margin: 8px;
+    width: 90%
+}
+
 .title {
     margin-top: 15px;
     margin-left: 15px;
