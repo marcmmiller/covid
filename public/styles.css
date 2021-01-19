@@ -28,9 +28,7 @@ body {
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
-
-    /* this needs to be converted to something more responsive: */
-    /*width: 70%;*/
+    /*padding: 0px !important;*/
 
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 20px;

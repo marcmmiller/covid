@@ -1,9 +1,6 @@
+@* -*-html-*- *@
 @html.extend('layout', function (model) {
   @html.block('content', function (model) {
-<script>
-  const g_pop = @html.raw(JSON.stringify(model.pop));
-  const g_data = @html.raw(JSON.stringify(model.data));
-</script>
 <div id="data-app" style="display:none">
   <div class="county-header">
     <div>
@@ -40,6 +37,7 @@
     <br/>
 
     <div class="data-detail">
+      Source <a href='https://github.com/nytimes/covid-19-data'>New York Times</a><br/>
       Data as of <span data-bind="text: latest.date"></span>
     </div>
   </div>
@@ -72,5 +70,13 @@
     <canvas id="deaths-per-day"></canvas>
   </div>
 </div> <!-- data-app -->
-});
-});
+
+})
+
+@html.block('post-body', function (model) {
+<script>
+  const g_pop = @html.raw(JSON.stringify(model.pop));
+  const g_data = @html.raw(JSON.stringify(model.data));
+</script>
+})
+})
