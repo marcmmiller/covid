@@ -1,0 +1,76 @@
+@html.extend('layout', function (model) {
+  @html.block('content', function (model) {
+<script>
+  const g_pop = @html.raw(JSON.stringify(model.pop));
+  const g_data = @html.raw(JSON.stringify(model.data));
+</script>
+<div id="data-app" style="display:none">
+  <div class="county-header">
+    <div>
+      <span class="county-name" data-bind="text: name"></span>
+      <a href="/" class="change">(change)</a>
+    </div>
+    <div class="pop">(est population <span data-bind="text:pop"></span>)</div>
+  </div>
+
+  <div class="container-sm tile">
+    Estimated active cases of COVID-19:
+    <div class="data-point-big">
+      <span data-bind="text: estActive"></span>
+    </div>
+
+    <div>
+      <span class="data-point" data-bind="text: estActivePct"></span>%
+      of <span data-bind="text: name"></span> has active Covid (estimated).
+    </div>
+
+    <br/>
+
+    <div>
+      In a group of
+      <span class="data-point" data-bind="text: groupSize"></span>
+      people, there's a
+      <div class="data-point-big">
+        <span data-bind="text: groupRisk"></span>%
+      </div>
+      chance that one person has active Covid.
+    </div>
+
+    <input type="range" class="form-range c-range" data-bind="value: groupSize" min="1" max="250" inc="1"/>
+    <br/>
+
+    <div class="data-detail">
+      Data as of <span data-bind="text: latest.date"></span>
+    </div>
+  </div>
+
+  <div class="container-sm tile">
+    Positive tests in the last 20 days
+    <div class="data-point-big">
+      <span data-bind="text: latest.active[10]"></span>
+    </div>
+    <div>
+      <span class="data-point" data-bind="text: avg7"></span>
+      avg positives per day
+      (<span class="data-point" data-bind="text: avg7Per100K"></span>
+      per 100K) last 7 days
+    </div>
+
+    <br/>
+
+    <canvas id="cases-per-day"></canvas>
+  </div>
+
+  <div class="container-sm tile">
+    Deaths:
+    <div class="data-point-big">
+      <span data-bind="text: latest.deaths"></span>
+    </div>
+
+    <br/>
+
+    <canvas id="deaths-per-day"></canvas>
+  </div>
+</div> <!-- data-app -->
+});
+});

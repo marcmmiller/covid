@@ -1,0 +1,20 @@
+@html.extend('layout', function (model) {
+  @html.block('content', function (model) {
+<script>
+  const g_counties = @html.raw(JSON.stringify(model.counties));
+</script>
+<div id="select-county" style="display:none">
+  <div class="tile">
+    Select a county:
+    <br/>
+    <div id="id-county-buttons" class="btn-group-vertical"
+         role="group" aria-label="Counties"
+         data-bind="foreach: counties">
+      <button type="button" class="btn btn-outline-primary"
+              data-bind="text: $data[0], attr: { 'data-fips': $data[2] + $data[3] }">
+      </button>
+    </div>
+  </div> <!-- /tile -->
+</div>
+})
+})

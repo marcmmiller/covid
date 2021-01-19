@@ -8,7 +8,11 @@ body {
     width: 90%
 }
 
-.title {
+.state-btn {
+    margin: 5px;
+}
+
+.county-header {
     margin-top: 15px;
     margin-left: 15px;
     margin-bottom: 15px;
@@ -26,12 +30,10 @@ body {
     padding-right: 10px;
 
     /* this needs to be converted to something more responsive: */
-    width: 70%;
+    /*width: 70%;*/
 
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 20px;
-    margin: 10px;
-    margin-left: 20px;
     margin-bottom: 20px;
     padding: 10px;
 }
@@ -63,6 +65,7 @@ body {
 .c-range {
     margin-top: 1em;
     margin-bottom: 1em;
+    width: 60%
 }
 
 .county-name {

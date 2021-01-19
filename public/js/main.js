@@ -1,7 +1,4 @@
 
-const g_states = [["Alabama","AL","01"],["Alaska","AK","02"],["Arizona","AZ","04"],["Arkansas","AR","05"],["California","CA","06"],["Colorado","CO","08"],["Connecticut","CT","09"],["Delaware","DE","10"],["Florida","FL","12"],["Georgia","GA","13"],["Hawaii","HI","15"],["Idaho","ID","16"],["Illinois","IL","17"],["Indiana","IN","18"],["Iowa","IA","19"],["Kansas","KS","20"],["Kentucky","KY","21"],["Louisiana","LA","22"],["Maine","ME","23"],["Maryland","MD","24"],["Massachusetts","MA","25"],["Michigan","MI","26"],["Minnesota","MN","27"],["Mississippi","MS","28"],["Missouri","MO","29"],["Montana","MT","30"],["Nebraska","NE","31"],["Nevada","NV","32"],["New Hampshire","NH","33"],["New Jersey","NJ","34"],["New Mexico","NM","35"],["New York","NY","36"],["North Carolina","NC","37"],["North Dakota","ND","38"],["Ohio","OH","39"],["Oklahoma","OK","40"],["Oregon","OR","41"],["Pennsylvania","PA","42"],["Rhode Island","RI","44"],["South Carolina","SC","45"],["South Dakota","SD","46"],["Tennessee","TN","47"],["Texas","TX","48"],["Utah","UT","49"],["Vermont","VT","50"],["Virginia","VA","51"],["Washington","WA","53"],["West Virginia","WV","54"],["Wisconsin","WI","55"],["Wyoming","WY","56"]];
-
-
 // Calculate active cases for all window-sizes of "active": 10-day days
 class ActiveCalc {
     constructor () {
@@ -66,10 +63,18 @@ function casesChart(data) {
             }]
         },
         options: {
+            legend: false,
             tooltips: {
                 intersect: false,
                 mode: 'index',
                 axis: 'x',
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        maxTicksLimit: 10
+                    }
+                }]
             }
         }
     });
@@ -90,69 +95,112 @@ function deathsChart(data) {
             }]
         },
         options: {
+            legend: false,
             tooltips: {
                 intersect: false,
                 mode: 'index',
                 axis: 'x',
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        maxTicksLimit: 10
+                    }
+                }]
             }
         }
     });
 }
 
-
 const g_underreportingFactor = 3.2;
-let g_D;
 
-function selectCounty(fips) {
-    ajdl('/pop19/36091', (popres) => {
-        ajdl('/fips/36091', (res) => {
-            g_D = res;
-            ActiveCalc.add(res);
-            let pop = Number(popres.pop);
-            let latest = res[res.length - 1];
-            let avg7 = latest.last7 / 7;
-            let avg7Per100K = avg7 / (pop / 100000);
-            let estActive = latest.active[10] * g_underreportingFactor;
-            let estActivePer100K = estActive / (pop / 100000);
-            let estActivePct = estActivePer100K / 1000;
-            let groupSize = ko.observable();
-            let groupRisk = ko.observable();
-            groupSize.subscribe((val) => {
-                let r = 1 - Math.pow(1-estActivePct/100, Number(groupSize()));
-                groupRisk((r * 100).toFixed(2));
-            });
-            groupSize(25);
-            let viewModel = {
-                name: popres.name,
-                pop: popres.pop,
-                latest: latest,
-                avg7: avg7.toFixed(2),
-                avg7Per100K: avg7Per100K.toFixed(2),
-                estActive: estActive,
-                estActivePer100K: estActivePer100K.toFixed(2),
-                estActivePct: estActivePct.toFixed(2),
-                groupSize: groupSize,
-                groupRisk: groupRisk
-            };
-            ko.applyBindings(viewModel, $('data-app').get(0));
-            casesChart(res);
-            deathsChart(res);
-        });
+function showCountyData() {
+    ActiveCalc.add(g_data);
+    let pop = Number(g_pop[1]);
+    let latest = g_data[g_data.length - 1];
+    let avg7 = latest.last7 / 7;
+    let avg7Per100K = avg7 / (pop / 100000);
+    let estActive = latest.active[10] * g_underreportingFactor;
+    let estActivePer100K = estActive / (pop / 100000);
+    let estActivePct = estActivePer100K / 1000;
+    let groupSize = ko.observable();
+    let groupRisk = ko.observable();
+    groupSize.subscribe((val) => {
+        let r = 1 - Math.pow(1-estActivePct/100, Number(groupSize()));
+        groupRisk((r * 100).toFixed(2));
     });
+    groupSize(25);
+    let viewModel = {
+        name: g_pop[0],
+        pop: pop,
+        latest: latest,
+        avg7: avg7.toFixed(2),
+        avg7Per100K: avg7Per100K.toFixed(2),
+        estActive: estActive.toFixed(2),
+        estActivePer100K: estActivePer100K.toFixed(2),
+        estActivePct: estActivePct.toFixed(2),
+        groupSize: groupSize,
+        groupRisk: groupRisk
+    };
+    ko.applyBindings(viewModel, $('#data-app').get(0));
+    $('#data-app').show();
+    casesChart(g_data);
+    deathsChart(g_data);
+}
+
+function selectState() {
+    $('#id-state-buttons').click((e) => {
+        if ($(e.target).is('button')) {
+            let state = e.target.innerText;
+            let fips = $(e.target).attr('data-fips');
+            console.log(`state ${state} fips ${fips}`);
+            e.stopPropagation();
+            window.location.href = '/county/' + fips;
+        };
+    });
+
+    let viewModel = {
+        states: g_states,
+    };
+    ko.applyBindings(viewModel, $('#select-state').get(0));
+    $('#select-state').show();
+}
+
+function selectCounty(stateAbbrev) {
+    g_counties.sort((a,b) => {
+        if (a[0] > b[0]) return 1;
+        else if (a[0] < b[0]) return -1;
+        else return 0;
+    });
+    let viewModel = {
+        counties: g_counties,
+    };
+    ko.applyBindings(viewModel, $('#select-county').get(0));
+
+    $('#id-county-buttons').click((e) => {
+        if ($(e.target).is('button')) {
+            let state = e.target.innerText;
+            let fips = $(e.target).attr('data-fips');
+            e.stopPropagation();
+            window.location.href = '/data/' + fips;
+        };
+    });
+
+    $('#select-county').show();
 }
 
 $( document ).ready( () => {
-    let nest = [];
-    for (let i = 0; i < g_states.length; ++i) {
-        if (i % 10 == 0) {
-            nest.push([]);
-        }
-        nest[nest.length - 1].push(g_states[i]);
+    let ostate = $('#select-state');
+    let ocounty = $('#select-county');
+    let dataapp = $('#data-app');
+
+    if (ostate.length > 0) {
+        selectState();
     }
-
-    let viewModel = {
-        stategroups: nest
-    };
-    ko.applyBindings(viewModel, $('#select-state').get(0));
+    else if (ocounty.length > 0) {
+        selectCounty();
+    }
+    else {
+        showCountyData();
+    }
 });
-
