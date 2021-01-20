@@ -10,37 +10,42 @@
     <div class="pop">(est population <span data-bind="text:pop"></span>)</div>
   </div>
 
-  <div class="container-sm tile">
-    Estimated active cases of COVID-19:
-    <div class="data-point-big">
-      <span data-bind="text: estActive"></span>
+  <div class="container-sm tile g-0">
+    <div class="tile-header">
+      RISK ASSESSMENT
     </div>
-
-    <div>
-      <span class="data-point" data-bind="text: estActivePct"></span>%
-      of <span data-bind="text: name"></span> has active Covid (estimated).
-    </div>
-
-    <br/>
-
-    <div>
-      In a group of
-      <span class="data-point" data-bind="text: groupSize"></span>
-      people, there's a
+    <div class="tile-body container">
+      Estimated active cases of COVID-19:
       <div class="data-point-big">
-        <span data-bind="text: groupRisk"></span>%
+        <span data-bind="text: estActive"></span>
       </div>
-      chance that one person has active Covid.
-    </div>
 
-    <input type="range" class="form-range c-range" data-bind="value: groupSize" min="1" max="250" inc="1"/>
-    <br/>
+      <div>
+        <span class="data-point" data-bind="text: estActivePct"></span>%
+        of <span data-bind="text: name"></span> has active Covid (estimated).
+      </div>
 
-    <div class="data-detail">
-      Source <a href='https://github.com/nytimes/covid-19-data'>New York Times</a><br/>
-      Data as of <span data-bind="text: latest.date"></span>
-    </div>
-  </div>
+      <br/>
+
+      <div>
+        In a group of
+        <span class="data-point" data-bind="text: groupSize"></span>
+        people, there's a
+        <div class="data-point-big">
+          <span data-bind="text: groupRisk"></span>%
+        </div>
+        chance that one person has active Covid.
+      </div>
+
+      <input type="range" class="form-range c-range" data-bind="value: groupSize" min="1" max="250" inc="1"/>
+      <br/>
+
+      <div class="data-detail">
+        Source <a href='https://github.com/nytimes/covid-19-data'>New York Times</a><br/>
+        Data as of <span data-bind="text: latest.date"></span>
+      </div>
+    </div> <!-- /tile-content -->
+  </div> <!-- /tile -->
 
   <div class="container-sm tile">
     Positive tests in the last 20 days

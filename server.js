@@ -8,6 +8,7 @@ const COUNTIES_CSV_PATH = '../covid-19-data/us-counties.csv';
 
 function parseCsv(path) {
     return new Promise(cb => {
+        console.log("Loading csv...");
         let res = [];
         fs.createReadStream(path)
             .pipe(csvparse())
@@ -84,7 +85,6 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use(express.static(path.join(__dirname, 'node_modules/knockout/build/output')));
-app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
 app.use(express.static(path.join(__dirname, 'node_modules/chart.js/dist')));
 

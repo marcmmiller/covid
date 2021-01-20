@@ -25,14 +25,23 @@ body {
 
 .tile {
     background-color: #fff;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
     /*padding: 0px !important;*/
 
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 20px;
     margin-bottom: 20px;
+}
+
+.tile-header {
+    background-color: #1a5898; /* #016765; */
+    color: #fff;
+    border-radius: 8px 8px 0px 0px;
+    font-weight: 600;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+.tile-body {
     padding: 10px;
 }
 
