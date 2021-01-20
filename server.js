@@ -3,6 +3,7 @@ const fs = require('fs');
 const express = require('express');
 const csvparse = require('csv-parser');
 const path = require('path');
+const MarkdownIt = require('markdown-it');
 
 const COUNTIES_CSV_PATH = '../covid-19-data/us-counties.csv';
 
@@ -83,6 +84,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'gen')));
 app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use(express.static(path.join(__dirname, 'node_modules/knockout/build/output')));
 app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
@@ -118,6 +120,14 @@ app.get('/data/:statecode(\\d{2}):countycode(\\d{3})', (req, res) => {
     res.render('data', {
         pop: pop19,
         data: data
+    });
+});
+
+app.get('/learnmore', (req, res) => {
+    let raw = fs.readFileSync(path.join(__dirname, "client/md/learnmore.md"), 'utf8');
+    console.log(raw);
+    res.render('text', {
+        md: new MarkdownIt().render(raw)
     });
 });
 

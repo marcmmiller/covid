@@ -32,6 +32,6 @@
   <script src="/Chart.bundle.min.js"></script>
   <script src="/js/main.js"></script>
 
-  @html.block('post-body');
+  @html.block('post-body')
 
 </html>

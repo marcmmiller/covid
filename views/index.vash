@@ -1,3 +1,4 @@
+@* -*-html-*- *@
 @html.extend('layout', function (model) {
   @html.block('content', function (model) {
 <script>
@@ -5,16 +6,21 @@
 </script>
 <div id="select-state" style="display: none">
   <div class="tile">
-    Select a state:
-    <br/>
-    <div id="id-state-buttons" class="state-group"
-         role="group" aria-label="US States"
-         data-bind="foreach: states">
-      <button type="button" class="btn btn-outline-primary state-btn"
-              data-bind="text: $data[1], attr: { 'data-fips': $data[2] }">
-      </button>
+    <div class="tile-header">
+      STATE
+    </div>
+    <div class="tile-body">
+      Select a state:
+      <br/>
+      <div id="id-state-buttons" class="state-group"
+           role="group" aria-label="US States"
+           data-bind="foreach: states">
+        <button type="button" class="btn btn-outline-primary state-btn"
+                data-bind="text: $data[1], attr: { 'data-fips': $data[2] }">
+        </button>
+      </div>
     </div>
   </div> <!-- /tile -->
 </div>
-});
-});
+})
+})

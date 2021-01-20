@@ -200,7 +200,7 @@ $( document ).ready( () => {
     else if (ocounty.length > 0) {
         selectCounty();
     }
-    else {
+    else if (dataapp.length > 0) {
         showCountyData();
     }
 });

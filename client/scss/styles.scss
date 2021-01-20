@@ -1,4 +1,6 @@
 
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
 body {
     font-family: "Roboto",-apple-system,BlinkMacSystemFont,"Segoe UI","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
 }
@@ -24,12 +26,15 @@ body {
 }
 
 .tile {
+    @extend .container-sm;
+    @extend .g-0;
     background-color: #fff;
     /*padding: 0px !important;*/
 
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 20px;
     margin-bottom: 20px;
+    margin-top: 10px !important;
 }
 
 .tile-header {
@@ -42,6 +47,7 @@ body {
 }
 
 .tile-body {
+    @extend .container;
     padding: 10px;
 }
 
@@ -70,6 +76,7 @@ body {
 }
 
 .c-range {
+    @extend .form-range;
     margin-top: 1em;
     margin-bottom: 1em;
     width: 60%

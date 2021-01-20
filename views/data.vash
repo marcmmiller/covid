@@ -10,11 +10,11 @@
     <div class="pop">(est population <span data-bind="text:pop"></span>)</div>
   </div>
 
-  <div class="container-sm tile g-0">
+  <div class="tile">
     <div class="tile-header">
       RISK ASSESSMENT
     </div>
-    <div class="tile-body container">
+    <div class="tile-body">
       Estimated active cases of COVID-19:
       <div class="data-point-big">
         <span data-bind="text: estActive"></span>
@@ -37,42 +37,55 @@
         chance that one person has active Covid.
       </div>
 
-      <input type="range" class="form-range c-range" data-bind="value: groupSize" min="1" max="250" inc="1"/>
-      <br/>
+      <input type="range" class="c-range" data-bind="value: groupSize" min="1" max="250" inc="1"/>
 
+      <br>
       <div class="data-detail">
-        Source <a href='https://github.com/nytimes/covid-19-data'>New York Times</a><br/>
-        Data as of <span data-bind="text: latest.date"></span>
+        <a class="change" href="/learnmore">Learn more.</a>
       </div>
-    </div> <!-- /tile-content -->
+      
+    </div> <!-- /tile-body -->
   </div> <!-- /tile -->
 
-  <div class="container-sm tile">
-    Positive tests in the last 20 days
-    <div class="data-point-big">
-      <span data-bind="text: latest.active[10]"></span>
+  <div class="tile">
+    <div class="tile-header">
+      TEST DATA
     </div>
-    <div>
-      <span class="data-point" data-bind="text: avg7"></span>
-      avg positives per day
-      (<span class="data-point" data-bind="text: avg7Per100K"></span>
-      per 100K) last 7 days
+    <div class="tile-body">
+      Positive tests in the last 20 days
+      <div class="data-point-big">
+        <span data-bind="text: latest.active[10]"></span>
+      </div>
+      <div>
+        <span class="data-point" data-bind="text: avg7"></span>
+        avg positives per day
+        (<span class="data-point" data-bind="text: avg7Per100K"></span>
+        per 100K) last 7 days
+      </div>
+
+      <br/>
+
+      <canvas id="cases-per-day"></canvas>
+    </div> <!-- /tile-body -->
+  </div> <!-- /tile -->
+
+  <div class="tile">
+    <div class="tile-header">
+      DEATHS
     </div>
+    <div class="tile-body">
+      <div class="data-point-big">
+        <span data-bind="text: latest.deaths"></span>
+      </div>
 
-    <br/>
+      <br/>
 
-    <canvas id="cases-per-day"></canvas>
+      <canvas id="deaths-per-day"></canvas>
+    </div>
   </div>
-
-  <div class="container-sm tile">
-    Deaths:
-    <div class="data-point-big">
-      <span data-bind="text: latest.deaths"></span>
-    </div>
-
-    <br/>
-
-    <canvas id="deaths-per-day"></canvas>
+  <div class="container data-detail">
+    Source <a href='https://github.com/nytimes/covid-19-data'>New York Times</a><br/>
+    Data as of <span data-bind="text: latest.date"></span>
   </div>
 </div> <!-- data-app -->
 
