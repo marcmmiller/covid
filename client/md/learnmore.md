@@ -59,30 +59,8 @@ closely match what other county-level sites are reporting for active cases.
 
 ##### Population Estimates
 
-US Census Bureau population estimates for 2019 are used in the data presented.
+The US Census Bureau provides population estimates for 2019 based on the 2010
+census, which are used for the calculations hosted here.
 
-
-##### What about test positivity rate?
-
-Donec risus est, vulputate sed lorem bibendum, egestas porttitor massa. Aliquam
-dui nunc, varius sed scelerisque quis, posuere vitae diam. Sed semper orci at
-pharetra facilisis. Ut porta varius nunc. Integer odio magna, viverra ut
-ullamcorper eget, consequat vel lorem. Quisque nunc nibh, vehicula vel lacus eu,
-fringilla auctor nisl. Morbi venenatis dapibus nisi et pharetra. Nunc egestas
-felis sit amet pellentesque vestibulum. Nullam quam sapien, accumsan vel
-consequat quis, ornare id lacus.
-
-Nulla ac mauris ac augue euismod varius id id nulla. Nam faucibus et metus sit
-amet sagittis. Aliquam non viverra metus, non dapibus tortor. In hac habitasse
-platea dictumst. Ut imperdiet, sem vitae ultrices ultrices, urna lacus
-sollicitudin magna, a semper lacus justo non ex. Curabitur rutrum velit interdum
-rhoncus ornare. Aliquam semper, est vel molestie viverra, tortor sapien sodales
-leo, tincidunt blandit augue velit sit amet nunc. In venenatis vitae est vitae
-sagittis. Nam sodales faucibus nibh in finibus. Vestibulum sed neque iaculis,
-pharetra nisl a, molestie magna. Aenean commodo lectus erat, non vehicula turpis
-tempus a. Orci varius natoque penatibus et magnis dis parturient montes,
-nascetur ridiculus mus. Pellentesque tristique massa ac nunc tempor efficitur at
-a ligula. Morbi dictum nisl convallis dolor pretium fermentum. Vestibulum nec
-tellus nec nunc rutrum mollis non eget ante.
 
 </div>

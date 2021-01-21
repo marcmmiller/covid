@@ -5,7 +5,7 @@ const csvparse = require('csv-parser');
 const path = require('path');
 const md = require('markdown-it')({ html: true });
 
-const COUNTIES_CSV_PATH = '../covid-19-data/us-counties.csv';
+const COUNTIES_CSV_PATH = path.join(__dirname, 'us-counties.csv');
 
 function parseCsv(path) {
     return new Promise(cb => {

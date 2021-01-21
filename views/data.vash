@@ -22,7 +22,7 @@
 
       <div>
         <span class="data-point" data-bind="text: estActivePct"></span>%
-        of <span data-bind="text: name"></span> has active Covid (estimated).
+        of <span data-bind="text: name"></span> has active Covid (<a href="/learnmore">estimated</a>).
       </div>
 
       <br/>
@@ -43,7 +43,7 @@
       <div class="data-detail">
         <a class="change" href="/learnmore">Learn more.</a>
       </div>
-      
+
     </div> <!-- /tile-body -->
   </div> <!-- /tile -->
 
