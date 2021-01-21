@@ -37,7 +37,7 @@ results are themselves based on CDC seroprevalance survey data throughout the
 pandemic as it has evolved.  In the future, we may add a feature which allows
 the user to experiment with their own custom factor.
 
-[1]: http://yahoo.com
+[1]: https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2774584
 
 
 ##### Active Cases
