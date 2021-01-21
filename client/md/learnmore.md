@@ -1,5 +1,7 @@
+<div class="tile-header">ABOUT RISK ASSESSMENT</div>
+<div class="tile-body">
 
-A lot of Covid reporting focuses on stats like positive test results, or test
+Covid prevalence reporting frequently focuses on stats like positive test results, or test
 positivity rates.  These numbers have limited utility when considered in the
 abstract: Are 300 positive tests a lot?  Does a test positivity rate of 5% mean
 that I should avoid the supermarket?  In order to answer these questions, we
@@ -9,13 +11,13 @@ multiple independent risk factors combine to form a composite picture?
 
 The risk assessment here attempts to present the available data in a form that
 is more readily consumed for decision making.  How many people in my community
-have active covid?  What is my likelihood of encountering someone with active
-covid in public?
+have active Covid?  What is my likelihood of encountering someone with active
+Covid in public?
 
 ##### Underreporting Factor
 
 To assess risk of exposure to Covid-19 in public places, we need to estimate the
-actual prevalance of the disease in the community.  This is tricky because the
+actual prevalence of the disease in the community.  This is tricky because the
 data available only tells us the number of people who have received a positive
 test result.  Since there are many scenarios where an individual might not seek
 a Covid test -- for example a person's case is asymptomatic -- it's widely
@@ -40,25 +42,23 @@ the user to experiment with their own custom factor.
 ##### Active Cases
 
 In addition to knowing how many people have tested positive for Covid-19, we
-need to know how long a case is "active" for.  Individuals who are no longer
+factor in how long a case is "active" for.  Individuals who are no longer
 contagious and have long since recovered should not be considered in a risk
-assessment.
+assessment.  For these purposes we use the admittedly conservative number of
+`20` days.  Thus, when a county reports a new positive test result, we consider
+it an active case for the following 20 days.  The CDC sites [a range of 10-20
+days][2] for infectiousness depending on the severity of the case and the
+infected person's level of immnocompromise.  Since we don't have a number that
+is more definite and more solidly supported by resarch, we have selected to use
+the number at the top of the range.  This also produces numbers that more
+closely match what other county-level sites are reporting for active cases.
+
+[2]: https://www.cdc.gov/coronavirus/2019-ncov/hcp/duration-isolation.html#:~:text=Available%20data%20indicate%20that%20persons,20%20days%20after%20symptom%20onset
+
 
 ##### Population Estimates
 
-Praesent id ante purus. Ut finibus, nulla ac volutpat commodo, justo odio
-iaculis metus, ac luctus est risus aliquam tellus. Nunc viverra sapien eros,
-fringilla cursus libero scelerisque ac. Pellentesque ultrices lectus eget cursus
-pellentesque. Vivamus quis elit ut neque ornare pretium. In hac habitasse platea
-dictumst. Duis interdum lorem vitae nisl efficitur, vitae pharetra diam
-convallis. Vivamus risus dolor, ultricies non malesuada vel, posuere imperdiet
-sapien. Ut venenatis, dui sed bibendum gravida, nunc tortor finibus lectus, vel
-pulvinar eros ex ut nibh. Phasellus sollicitudin ipsum aliquet erat ullamcorper,
-in commodo urna pellentesque. Praesent eu augue purus. Phasellus eu leo quis
-purus facilisis hendrerit. Vivamus orci nibh, facilisis vitae dignissim nec,
-congue pellentesque tellus. Proin ut orci pellentesque, ultrices leo vel,
-fermentum sapien. Donec vulputate tincidunt dignissim. Nulla commodo orci ut
-lacus venenatis, sed fringilla arcu cursus.
+US Census Bureau population estimates for 2019 are used in the data presented.
 
 
 ##### What about test positivity rate?
@@ -83,3 +83,5 @@ tempus a. Orci varius natoque penatibus et magnis dis parturient montes,
 nascetur ridiculus mus. Pellentesque tristique massa ac nunc tempor efficitur at
 a ligula. Morbi dictum nisl convallis dolor pretium fermentum. Vestibulum nec
 tellus nec nunc rutrum mollis non eget ante.
+
+</div>

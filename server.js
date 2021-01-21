@@ -3,7 +3,7 @@ const fs = require('fs');
 const express = require('express');
 const csvparse = require('csv-parser');
 const path = require('path');
-const MarkdownIt = require('markdown-it');
+const md = require('markdown-it')({ html: true });
 
 const COUNTIES_CSV_PATH = '../covid-19-data/us-counties.csv';
 
@@ -125,9 +125,8 @@ app.get('/data/:statecode(\\d{2}):countycode(\\d{3})', (req, res) => {
 
 app.get('/learnmore', (req, res) => {
     let raw = fs.readFileSync(path.join(__dirname, "client/md/learnmore.md"), 'utf8');
-    console.log(raw);
     res.render('text', {
-        md: new MarkdownIt().render(raw)
+        md: md.render(raw)
     });
 });
 

@@ -2,12 +2,7 @@
 @html.extend('layout', function (model) {
   @html.block('content', function (model) {
 <div class="tile">
-  <div class="tile-header">
-    ABOUT RISK ASSESSMENT
-  </div>
-  <div class="tile-body">
-    @html.raw(model.md)
-  </div>
+  @html.raw(model.md)
 </div>
 })
 })
