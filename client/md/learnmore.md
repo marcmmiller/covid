@@ -1,18 +1,19 @@
 <div class="tile-header">ABOUT RISK ASSESSMENT</div>
 <div class="tile-body">
 
-Covid prevalence reporting frequently focuses on stats like positive test results, or test
-positivity rates.  These numbers have limited utility when considered in the
-abstract: Are 300 positive tests a lot?  Does a test positivity rate of 5% mean
-that I should avoid the supermarket?  In order to answer these questions, we
-often need to take other factors into account: How closely does the available
-data match the actual situation?  What is the population of my area?  How do
-multiple independent risk factors combine to form a composite picture?
+Covid prevalence reporting frequently focuses on stats like positive test
+results, or test positivity rates.  These numbers have limited utility when
+considered in the abstract: Are 300 positive tests "a lot"?  Does a test
+positivity rate of 5% mean that I should avoid the supermarket?  In order to
+answer these questions, we often need to take other factors into account: How
+closely does the available data match the actual situation?  What is the
+population of my area?  How do multiple independent risk factors combine to form
+a composite picture?
 
 The risk assessment here attempts to present the available data in a form that
-is more readily consumed for decision making.  How many people in my community
-have active Covid?  What is my likelihood of encountering someone with active
-Covid in public?
+is more readily consumed for decision making.  It tries to answer questions
+like: How many people in my community have active Covid?  What is my likelihood
+of encountering someone with active Covid in public?
 
 ##### Underreporting Factor
 
