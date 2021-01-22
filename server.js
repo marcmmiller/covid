@@ -1,9 +1,9 @@
-
-const fs = require('fs');
-const express = require('express');
 const csvparse = require('csv-parser');
-const path = require('path');
+const express = require('express');
+const fs = require('fs');
+const https = require('https');
 const md = require('markdown-it')({ html: true });
+const path = require('path');
 
 const COUNTIES_CSV_PATH = path.join(__dirname, 'us-counties.csv');
 
@@ -38,32 +38,37 @@ function loadPop() {
 }
 
 let g_counties;
+
+// Note: this can be called multiple times to re-load data.
 async function initialize() {
-    g_counties = await parseCsv(COUNTIES_CSV_PATH);
-    console.log(`...parse of ${ g_counties.length } entries complete.`);
+    let counties = await parseCsv(COUNTIES_CSV_PATH);
+    console.log(`...parse of ${ counties.length } entries complete.`);
 
-    g_populations = await loadPop();
+    let populations = await loadPop();
 
-    g_populations = g_populations.filter( (i) => {
+    populations = populations.filter( (i) => {
         // Remove any county that doesn't appear in the NYT data
         let fips = i[2] + '' + i[3];
-        let found = g_counties.findIndex((j) => j.fips == fips) >= 0;
+        let found = counties.findIndex((j) => j.fips == fips) >= 0;
         if (!found) {
             console.log("Removing county " + i[0]);
         }
         return found;
     });
     // Add a fake New York City "county" to the list.
-    g_populations.push(["New York City, New York",
-                        "8419000", "36", "000"]);
+    populations.push(["New York City, New York",
+                      "8419000", "36", "000"]);
 
     // Give the fake New York City a "36000" fips code.
-    g_counties = g_counties.map( (i) => {
+    counties = counties.map( (i) => {
         if (i.county == "New York City") {
             i.fips = "36000";
         }
         return i;
     });
+
+    g_counties = counties;
+    g_populations = populations;
 
     console.log("Done");
 };
@@ -121,6 +126,38 @@ app.get('/data/:statecode(\\d{2}):countycode(\\d{3})', (req, res) => {
         pop: pop19,
         data: data
     });
+});
+
+app.get('/dl-counties', (req, res) => {
+    if (process.env.NODE_ENV == 'production') {
+        let cronheader = req.headers['X-Appengine-Cron'];
+        if (cronheader != 'true') {
+            console.error("Bad cron header: " + cronheader);
+            throw new Error('Access denied.');
+        }
+    }
+
+    // TODO: consider using a higher-level http fetcher that handles 302 redirects.
+    https.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv',
+              (httpres) => {
+                  if (httpres.statusCode !== 200) {
+                      console.error("Download request failed w/ status: " + httpres.statusCode);
+                      console.dir(httpres.headers);
+                      httpres.resume();
+                      res.sendStatus(500);
+                      return;
+                  }
+                  let file = fs.createWriteStream(COUNTIES_CSV_PATH);
+                  httpres.pipe(file);
+                  httpres.on('end', () => {
+                      console.log("Successfully completed download of us-counties.csv");
+                      initialize().then( () => {
+                          console.log("Re-initialize complete");
+                          res.send('ok');
+                      });
+                  });
+                  httpres.on('err', (e) => { console.err(e); res.send(500); } );
+              });
 });
 
 app.get('/learnmore', (req, res) => {
