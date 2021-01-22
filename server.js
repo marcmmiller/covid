@@ -130,8 +130,8 @@ app.get('/data/:statecode(\\d{2}):countycode(\\d{3})', (req, res) => {
 
 app.get('/dl-counties', (req, res) => {
     if (process.env.NODE_ENV == 'production') {
-        let cronheader = req.headers['X-Appengine-Cron'];
-        if (cronheader != 'true') {
+        let cronheader = req.header('X-Appengine-Cron');
+        if (!cronheader) {
             console.error("Bad cron header: " + cronheader);
             throw new Error('Access denied.');
         }
