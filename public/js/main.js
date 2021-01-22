@@ -144,6 +144,9 @@ function showCountyData() {
     };
     ko.applyBindings(viewModel, $('#data-app').get(0));
     $('#data-app').show();
+    $('#groupsize-range').on('input change', (e) => {
+        groupSize($('#groupsize-range').val());
+    });
     casesChart(g_data);
     deathsChart(g_data);
 }
