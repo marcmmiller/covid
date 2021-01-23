@@ -135,16 +135,19 @@ app.get('/dl-counties', (req, res) => {
             console.error("Bad cron header: " + cronheader);
             throw new Error('Access denied.');
         }
+        res.sendStatus(200);
     }
 
+    console.log("Downloading new county data...");
     // TODO: consider using a higher-level http fetcher that handles 302 redirects.
     https.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv',
               (httpres) => {
+                  console.log("Status: " + httpres.statusCode);
                   if (httpres.statusCode !== 200) {
                       console.error("Download request failed w/ status: " + httpres.statusCode);
                       console.dir(httpres.headers);
                       httpres.resume();
-                      res.sendStatus(500);
+                      //res.sendStatus(500);
                       return;
                   }
                   let file = fs.createWriteStream(COUNTIES_CSV_PATH);
@@ -153,10 +156,10 @@ app.get('/dl-counties', (req, res) => {
                       console.log("Successfully completed download of us-counties.csv");
                       initialize().then( () => {
                           console.log("Re-initialize complete");
-                          res.send('ok');
+                          //res.send('ok');
                       });
                   });
-                  httpres.on('err', (e) => { console.err(e); res.send(500); } );
+                  httpres.on('err', (e) => { console.err(e); /*res.send(500);*/ } );
               });
 });
 
