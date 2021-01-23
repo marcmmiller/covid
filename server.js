@@ -5,7 +5,7 @@ const https = require('https');
 const md = require('markdown-it')({ html: true });
 const path = require('path');
 
-const COUNTIES_CSV_PATH = path.join(__dirname, 'us-counties.csv');
+const COUNTIES_CSV_PATH = path.join(__dirname, path.join('data', 'us-counties.csv'));
 
 function parseCsv(path) {
     return new Promise(cb => {
