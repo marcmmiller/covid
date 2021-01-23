@@ -129,6 +129,8 @@ app.get('/data/:statecode(\\d{2}):countycode(\\d{3})', (req, res) => {
 });
 
 app.get('/dl-counties', (req, res) => {
+    /*
+      Remove this until the cron limitatios are better known.
     if (process.env.NODE_ENV == 'production') {
         let cronheader = req.header('X-Appengine-Cron');
         if (!cronheader) {
@@ -137,8 +139,11 @@ app.get('/dl-counties', (req, res) => {
         }
         res.sendStatus(200);
     }
+    */
 
     console.log("Downloading new county data...");
+    res.sendStatus(200);
+
     // TODO: consider using a higher-level http fetcher that handles 302 redirects.
     https.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv',
               (httpres) => {
