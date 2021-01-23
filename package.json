@@ -4,7 +4,7 @@
   "description": "Yet another covid tracker",
   "main": "server.js",
     "scripts": {
-        "gcp-build": "mkdir -p gen && ./node_modules/node-sass/bin/node-sass -o gen client/scss/styles.scss",
+        "gcp-build": "mkdir -p gen && ./node_modules/node-sass/bin/node-sass -o gen client/scss/styles.scss && curl https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv > us-counties.csv",
         "test": "node server.js",
         "start": "node server.js"
     },
