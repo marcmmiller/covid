@@ -4,7 +4,7 @@
   "description": "Yet another covid tracker",
   "main": "server.js",
     "scripts": {
-        "gcp-build": "./run.sh -b"
+        "gcp-build": "./run.sh -b",
         "test": "node server.js",
         "start": "node server.js"
     },
