@@ -165,6 +165,9 @@ function selectState() {
         g_states[f].avg7 = g_states[f].last7 / 7;
         g_states[f].avg7Per100K =
             g_states[f].avg7 / (g_states[f].pop / 100000);
+        let estActive = g_states[f].last20 * g_underreportingFactor;
+        let estActivePer100K = estActive / (g_states[f].pop / 100000);
+        g_states[f].estActivePct = estActivePer100K / 1000;
         if (g_states[f].abbrev) {
             states.push(g_states[f]);
         }

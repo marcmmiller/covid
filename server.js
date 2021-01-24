@@ -56,14 +56,21 @@ async function loadStates() {
         states[fips].abbrev = abbrev;
     }
 
+    //
+    // TODO: this 'algorithm' works by processing the entire historical record
+    // since the beginning of the pandemic just to calculate new cases over the
+    // lastN days.  It can be made faster of course by just looking at the past
+    // N+1 days.  For right now, it seems fast enough though not to bother.
+    //
     let history = {};
     for (let i = 0; i < d.length; i++) {
         let f = d[i].fips;
         if (!history[f]) {
             history[f] = {};
             history[f].last7 = 0;
+            history[f].last20 = 0;
             history[f].prev = 0;
-            history[f].newc = (new Array(7).fill(0));
+            history[f].newc = (new Array(20).fill(0));
             history[f].count = 0;
         }
         let count = history[f].count;
@@ -72,15 +79,21 @@ async function loadStates() {
         history[f].prev = cases;
         history[f].last7 += newc;
         if (count >= 7) {
-            history[f].last7 -= history[f].newc[count % 7];
+            history[f].last7 -= history[f].newc[(count - 7) % 20];
         }
-        history[f].newc[count % 7] = newc;
+        history[f].last20 += newc;
+        if (count >= 20) {
+            history[f].last20 -= history[f].newc[count % 20];
+        }
+        history[f].newc[count % 20] = newc;
+        history[f].date =d[i].date;
         ++history[f].count;
     }
 
     for (let f of Object.keys(states)) {
         states[f].last7 = history[f].last7;
-        console.dir(states[f]);
+        states[f].last20 = history[f].last20;
+        states[f].date = history[f].date;
     }
 
     return states;

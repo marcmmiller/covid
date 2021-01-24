@@ -7,10 +7,10 @@
 <div id="select-state" style="display: none">
   <div class="tile">
     <div class="tile-header">
-      AVERAGE COVID CASES (per 100k population; last 7 days)
+      COVID RISK DASHBOARD
     </div>
     <div class="tile-body">
-      Select a state:
+      Percent population with active COVID cases per state (<a href="/learnmore">estimated</a>).
       <br/>
       <div id="id-state-buttons" class="state-group"
            role="group" aria-label="US States"
@@ -18,8 +18,14 @@
         <button type="button" class="btn btn-outline-primary state-btn"
                 data-bind="attr: { 'data-fips': $data.fips }">
           <div class="border-bottom" data-bind="text: $data.abbrev"></div>
-          <div style="font-size: .8rem" data-bind="text: Math.round($data.avg7Per100K)"></div>
+          <!--<div style="font-size: .8rem" data-bind="text: Math.round($data.avg7Per100K)"></div>-->
+          <div style="font-size: .8rem" data-bind="text: $data.estActivePct.toFixed(2)"></div>
         </button>
+      </div>
+      <br>
+      <div class="data-detail">
+        <div>Data as of <span data-bind="text: states[0].date"></span></div>
+        <a class="change" href="/learnmore">Learn more.</a>
       </div>
     </div>
   </div> <!-- /tile -->

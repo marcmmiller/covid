@@ -17,6 +17,6 @@
 node_modules/
 
 gen/
-data/
-
-
+data/us-counties.csv
+data/us-states.csv
+data/us.csv
