@@ -43,7 +43,7 @@ if [[ $clean == "1" ]]; then
     set -x
     cd -P "$( dirname "${BASH_SOURCE[0]}" )"
     rm -rf gen
-    rm -f us-counties.csv us-states.csv us.csv
+    rm -f data/us-counties.csv data/us-states.csv data/us.csv
     exit 1;
 fi
 

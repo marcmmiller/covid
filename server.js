@@ -5,7 +5,10 @@ const https = require('https');
 const md = require('markdown-it')({ html: true });
 const path = require('path');
 
-const COUNTIES_CSV_PATH = path.join(__dirname, path.join('data', 'us-counties.csv'));
+const DATA_PATH = path.join(__dirname, 'data');
+const COUNTIES_CSV_PATH = path.join(DATA_PATH, 'us-counties.csv');
+const POP_JSON_PATH = path.join(DATA_PATH, 'pop.json');
+const STATES_JSON_PATH = path.join(DATA_PATH, 'states.json');
 
 function parseCsv(path) {
     return new Promise(cb => {
@@ -32,15 +35,65 @@ function loadPop() {
     // where "36" are the first two digits of the FIPS code and "091" are the last three.
     //
     return new Promise(cb => {
-        let raw = fs.readFileSync(path.join(__dirname, 'pop.json'));
+        let raw = fs.readFileSync(POP_JSON_PATH);
         cb(JSON.parse(raw));
     });
 }
 
+async function loadStates() {
+    let d = await parseCsv(path.join(DATA_PATH, 'us-states.csv'));
+    let state_pops = JSON.parse(fs.readFileSync(path.join(DATA_PATH, 'states.json')));
+    state_pops.shift();  // remove metadata header
+
+    let state_fips = JSON.parse(fs.readFileSync(path.join(DATA_PATH, 'state-fips.json')));
+
+    let states = {};
+    for (let [name, pop, fips] of state_pops) {
+        states[fips]  = { name: name, pop: pop };
+    }
+
+    for (let [name, abbrev, fips] of state_fips) {
+        states[fips].abbrev = abbrev;
+    }
+
+    let history = {};
+    for (let i = 0; i < d.length; i++) {
+        let f = d[i].fips;
+        if (!history[f]) {
+            history[f] = {};
+            history[f].last7 = 0;
+            history[f].prev = 0;
+            history[f].newc = (new Array(7).fill(0));
+            history[f].count = 0;
+        }
+        let count = history[f].count;
+        let cases = Number(d[i].cases);
+        let newc = cases - history[f].prev;
+        history[f].prev = cases;
+        history[f].last7 += newc;
+        if (count >= 7) {
+            history[f].last7 -= history[f].newc[count % 7];
+        }
+        history[f].newc[count % 7] = newc;
+        ++history[f].count;
+    }
+
+    for (let f of Object.keys(states)) {
+        states[f].last7 = history[f].last7;
+        console.dir(states[f]);
+    }
+
+    return states;
+}
+
+
 let g_counties;
+let g_states;
 
 // Note: this can be called multiple times to re-load data.
 async function initialize() {
+    let states = await loadStates();
+
     let counties = await parseCsv(COUNTIES_CSV_PATH);
     console.log(`...parse of ${ counties.length } entries complete.`);
 
@@ -67,6 +120,7 @@ async function initialize() {
         return i;
     });
 
+    g_states = states;
     g_counties = counties;
     g_populations = populations;
 
@@ -176,7 +230,9 @@ app.get('/learnmore', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('index', {});
+    res.render('index', {
+        states: g_states
+    });
 });
 
 initialize().then(x => {

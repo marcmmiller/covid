@@ -1,4 +1,11 @@
 
+
+function comparator(a, b) {
+    if (a > b) return 1;
+    else if (a < b) return -1;
+    else return 0;
+};
+
 // Calculate active cases for all window-sizes of "active": 10-day days
 class ActiveCalc {
     constructor () {
@@ -152,29 +159,34 @@ function showCountyData() {
 }
 
 function selectState() {
-    $('#id-state-buttons').click((e) => {
-        if ($(e.target).is('button')) {
-            let state = e.target.innerText;
-            let fips = $(e.target).attr('data-fips');
-            console.log(`state ${state} fips ${fips}`);
-            e.stopPropagation();
-            window.location.href = '/county/' + fips;
-        };
-    });
+    let states = [];
+    for (let f of Object.keys(g_states)) {
+        g_states[f].fips = f;
+        g_states[f].avg7 = g_states[f].last7 / 7;
+        g_states[f].avg7Per100K =
+            g_states[f].avg7 / (g_states[f].pop / 100000);
+        if (g_states[f].abbrev) {
+            states.push(g_states[f]);
+        }
+    }
+    states.sort((a,b) => comparator(a.abbrev, b.abbrev));
 
     let viewModel = {
-        states: g_states,
+        states: states
     };
     ko.applyBindings(viewModel, $('#select-state').get(0));
+
+    $('.state-btn').click((e) => {
+        let fips = $(e.currentTarget).attr('data-fips');
+        e.stopPropagation();
+        window.location.href = '/county/' + fips;
+    });
+
     $('#select-state').show();
 }
 
 function selectCounty(stateAbbrev) {
-    g_counties.sort((a,b) => {
-        if (a[0] > b[0]) return 1;
-        else if (a[0] < b[0]) return -1;
-        else return 0;
-    });
+    g_counties.sort((a,b) => comparator(a[0], b[0]));
     let viewModel = {
         counties: g_counties,
     };

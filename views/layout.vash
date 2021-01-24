@@ -10,16 +10,9 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="author" content="Gustavotron, Inc.">
 
-    <title>YACT</title>
+    <title>COVID Risk Dashboard</title>
 
-    <!-- <link href="/css/main.css" rel="stylesheet"> -->
-
-    <link rel="stylesheet" href="/bootstrap.min.css"/>
     <link rel="stylesheet" href="/styles.css"/>
-
-    <style>
-      //
-    </style>
   </head>
 
   <body>
