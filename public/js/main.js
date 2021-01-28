@@ -1,5 +1,4 @@
 
-
 function comparator(a, b) {
     if (a > b) return 1;
     else if (a < b) return -1;
@@ -191,6 +190,7 @@ function selectState() {
 function selectCounty(stateAbbrev) {
     g_counties.sort((a,b) => comparator(a[0], b[0]));
     let viewModel = {
+        state: g_state,
         counties: g_counties,
     };
     ko.applyBindings(viewModel, $('#select-county').get(0));

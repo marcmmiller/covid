@@ -2,12 +2,13 @@
 @html.extend('layout', function (model) {
   @html.block('content', function (model) {
 <script>
+  const g_state = @html.raw(JSON.stringify(model.state));
   const g_counties = @html.raw(JSON.stringify(model.counties));
 </script>
 <div id="select-county" style="display:none">
   <div class="tile">
     <div class="tile-header">
-      COUNTY
+      <span data-bind="text: state.name.toUpperCase()"></span> COUNTIES
     </div>
     <div class="tile-body">
         Select a county:

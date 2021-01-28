@@ -36,7 +36,14 @@ function loadPop() {
     //
     return new Promise(cb => {
         let raw = fs.readFileSync(POP_JSON_PATH);
-        cb(JSON.parse(raw));
+        let counties = JSON.parse(raw);
+        counties.shift();
+
+        counties.map(i => {
+            let n = i[0].indexOf(" County, ");
+            i[0] = i[0].substring(0, n);
+        });
+        cb(counties);
     });
 }
 
@@ -180,6 +187,7 @@ app.get('/counties/:statecode(\\d{2})', (req, res) => {
 app.get('/county/:statecode(\\d{2})', (req, res) => {
     let counties = g_populations.filter( i => (i[2] == req.params.statecode) );
     res.render('county', {
+        state: g_states[req.params.statecode],
         counties: counties,
     });
 });
