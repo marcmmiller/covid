@@ -15,6 +15,11 @@ is more readily consumed for decision making.  It tries to answer questions
 like: How many people in my community have active Covid?  What is my likelihood
 of encountering someone with active Covid in public?
 
+Of course, we can only approximate answers to these questions and usually have
+relatively little information to do it with.  Therefore, take our risk estimates
+with a grain of salt: they can serve as a guide to help calibrate your decision
+making process.
+
 ##### Underreporting Factor
 
 To assess risk of exposure to Covid-19 in public places, we need to estimate the
